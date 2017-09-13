@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
 
     if (bind(sockfd,(struct sockaddr *) &serveraddr, sizeof(serveraddr)) < 0)
         error("ERROR on binding");
-
+    printf("Start to run server!\n");
     clientlen = sizeof(clientaddr);
     while (1) {
 
@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
             error("ERROR on inet_ntoa\n");
 
         printf("server received datagram from %s (%s)\n",hostp->h_name,hostaddrp);
-        printf("server received %d/%d byte : %d %c %d \n", sizeof(rdata), n, rdata.left_num, rdata.op, rdata.right_num);
+        printf("server received : %d %c %d \n", rdata.left_num, rdata.op, rdata.right_num);
 
         switch (rdata.op)
         {
@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
                 rdata.result = rdata.left_num/rdata.right_num;
                 break;
         }
-
+        printf("Result : %d\n", rdata.result );
         n=sendto(sockfd,(void *)&rdata, sizeof(rdata),0, (struct sockaddr *)&clientaddr, clientlen);
 
         if (n<0)

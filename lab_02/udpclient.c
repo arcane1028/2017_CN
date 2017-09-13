@@ -60,29 +60,33 @@ int main(int argc, char **argv) {
     serveraddr.sin_family = AF_INET;
     bcopy((char *)server->h_addr,(char *)&serveraddr.sin_addr.s_addr, server->h_length);
     serveraddr.sin_port = htons(portno);
-    printf("Please enter msg:");
-    fgets(msg,BUFSIZE,stdin);
+    while(1) {
+        printf("Please enter msg : ");
+        fgets(msg, BUFSIZE, stdin);
 
-    sscanf(msg, "%d %c %d", &left_num, &op, &right_num);
+        sscanf(msg, "%d%c%d", &left_num, &op, &right_num);
 
-    memset((void *)&sdata, 0x00, sizeof(sdata));
-    //sdata.left_num = htonl(left_num);
-    //sdata.right_num = htonl(right_num);
-    sdata.left_num = left_num;
-    sdata.right_num = right_num;
-    sdata.op = op;
+        memset((void *) &sdata, 0x00, sizeof(sdata));
+        //sdata.left_num = htonl(left_num);
+        //sdata.right_num = htonl(right_num);
+        sdata.left_num = left_num;
+        sdata.right_num = right_num;
+        sdata.op = op;
 
-    serverlen = sizeof(serveraddr);
-    n = sendto(sockfd, (void *)&sdata, sizeof(sdata),0, &serveraddr, serverlen);
+        printf(" > %d %c %d\n", sdata.left_num, sdata.op, sdata.right_num);
 
-    if(n<0)
-        error("ERROR in sendto");
+        serverlen = sizeof(serveraddr);
+        n = sendto(sockfd, (void *) &sdata, sizeof(sdata), 0, &serveraddr, serverlen);
 
-    n = recvfrom(sockfd, (void *)&sdata, sizeof(sdata), 0, &serveraddr, &serverlen);
-    printf("%d %c %d",sdata.right_num,sdata.op,sdata.left_num);
-    if (n<0)
-        error("ERROR in recvform");
-    printf("Echo from server: %d",sdata.result);
-    return 0;
+        if (n < 0)
+            error("ERROR in sendto");
+
+        n = recvfrom(sockfd, (void *) &sdata, sizeof(sdata), 0, &serveraddr, &serverlen);
+
+        if (n < 0)
+            error("ERROR in recvform");
+        printf("Echo from server Result : %d\n", sdata.result);
+
+    }
 
 }
