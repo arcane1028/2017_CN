@@ -28,6 +28,9 @@ int main(int argc, char **argv) {
     int sockfd;
     int portno;
     int clientlen;
+    int left_num;
+    int right_num;
+    int result;
     struct sockaddr_in serveraddr;
     struct sockaddr_in clientaddr;
     struct hostent *hostp;
@@ -79,29 +82,33 @@ int main(int argc, char **argv) {
         if (hostaddrp == NULL)
             error("ERROR on inet_ntoa\n");
 
-        printf("server received datagram from %s (%s)\n",hostp->h_name,hostaddrp);
-        printf("server received : %d %c %d \n", rdata.left_num, rdata.op, rdata.right_num);
+        printf("Client Info : %s (%d)\n",hostaddrp, clientaddr.sin_port );
+        printf("Input : %d %c %d \n", ntohl(rdata.left_num), rdata.op, ntohl(rdata.right_num));
+
+        left_num=ntohl(rdata.left_num);
+        right_num=ntohl(rdata.right_num);
 
         switch (rdata.op)
         {
             case '+':
-                rdata.result = rdata.left_num+rdata.right_num;
+                result = left_num+right_num;
                 break;
             case '-':
-                rdata.result = rdata.left_num-rdata.right_num;
+                result = left_num-right_num;
                 break;
             case '*':
-                rdata.result = rdata.left_num*rdata.right_num;
+                result = left_num*right_num;
                 break;
             case '/':
-                if (rdata.right_num == 0){
+                if (right_num == 0){
                     rdata.error = htons(2);
                     break;
                 }
-                rdata.result = rdata.left_num/rdata.right_num;
+                result = left_num/right_num;
                 break;
         }
-        printf("Result : %d\n", rdata.result );
+        printf("Result : %d\n", result );
+        rdata.result = htonl(result);
         n=sendto(sockfd,(void *)&rdata, sizeof(rdata),0, (struct sockaddr *)&clientaddr, clientlen);
 
         if (n<0)

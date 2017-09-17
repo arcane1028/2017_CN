@@ -30,14 +30,12 @@ int main(int argc, char **argv) {
     int sockfd, portno, n;
     int serverlen;
     int left_num, right_num;
-    char op;
+    char* op;
     struct sockaddr_in serveraddr;
     struct hostent *server;
     struct cal_data sdata;
     char *hostname;
-    char buf[BUFSIZE];
     char msg[BUFSIZE];
-
 
     if (argc != 3) {
         fprintf(stderr, "usage : %s <hostname>\n", argv[0]);
@@ -61,19 +59,19 @@ int main(int argc, char **argv) {
     bcopy((char *)server->h_addr,(char *)&serveraddr.sin_addr.s_addr, server->h_length);
     serveraddr.sin_port = htons(portno);
     while(1) {
-        printf("Please enter msg : ");
+        printf("> ");
         fgets(msg, BUFSIZE, stdin);
 
-        sscanf(msg, "%d%c%d", &left_num, &op, &right_num);
+        sscanf(msg, "%d%[^0-9]%d", &left_num, op, &right_num);
 
         memset((void *) &sdata, 0x00, sizeof(sdata));
-        //sdata.left_num = htonl(left_num);
-        //sdata.right_num = htonl(right_num);
-        sdata.left_num = left_num;
-        sdata.right_num = right_num;
-        sdata.op = op;
+        sdata.left_num = htonl(left_num);
+        sdata.right_num = htonl(right_num);
+        //sdata.left_num = left_num;
+        //sdata.right_num = right_num;
+        sdata.op = op[0];
 
-        printf(" > %d %c %d\n", sdata.left_num, sdata.op, sdata.right_num);
+        printf(" %d %c %d =", ntohl(sdata.left_num), sdata.op, ntohl(sdata.right_num));
 
         serverlen = sizeof(serveraddr);
         n = sendto(sockfd, (void *) &sdata, sizeof(sdata), 0, &serveraddr, serverlen);
@@ -85,7 +83,7 @@ int main(int argc, char **argv) {
 
         if (n < 0)
             error("ERROR in recvform");
-        printf("Echo from server Result : %d\n", sdata.result);
+        printf(" %d\n", ntohl(sdata.result));
 
     }
 
