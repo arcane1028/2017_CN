@@ -21,12 +21,11 @@ struct NAT {
 };
 
 void sender_packet(struct packet *mypacket);
-void router_private(int *pInt, struct NAT pNAT[10], struct packet *pPacket);
-void receiver_packet(struct packet *pPacket);
-void router_public(int *pInt, struct NAT pNAT[10], struct packet *pPacket);
-
+void router_private(int *entry, struct NAT table[10], struct packet *mypacket);
+void receiver_packet(struct packet *mypacket);
+void router_public(const int *entry, struct NAT table[10], struct packet *mypacket);
 void printPacket(struct packet *mypacket);
-void printTable(struct NAT table[10], int i);
+void printTable(struct NAT table[10], int entry);
 
 int main() {
     struct packet *mypacket = (struct packet *) malloc(sizeof(struct packet));
@@ -40,61 +39,46 @@ int main() {
         router_public(&entry, table, mypacket);
         printf("Continue (Y/N)\n");
         fflush(stdin);
-        ch = getchar();
+        ch = (char)getchar();
         if (ch == 'N' || ch == 'n')
             return 1;
     }
 }
 
-void router_public(int *entry, struct NAT table[10], struct packet *mypacket) {
-    printf("NAT Receives Packet from External Networks\n\n");
+// 패킷을 보내는 함수
+void sender_packet(struct packet *mypacket) {
+    int dstAddress[4];
+    int dstPort;
+    // 목적지 IP, port 입력받음
+    fflush(stdin);
+    printf("Enter destination address\n");
+    scanf("%d.%d.%d.%d", &dstAddress[0], &dstAddress[1], &dstAddress[2], &dstAddress[3]);
+    fflush(stdin);
+    printf("Enter destination port\n");
+    scanf("%d", &dstPort);
+    fflush(stdin);
+    //패킷 생성
+    memcpy(mypacket->dip, dstAddress, sizeof(dstAddress));
+    mypacket->dport = dstPort;
+    memcpy(mypacket->sip, myaddress, sizeof(myaddress));
+    mypacket->sport = myport;
 
+    printf("\nSender Sends\n\n");
     printPacket(mypacket);
 
-    for (int i = 0; i < *entry; ++i) {
-        if (memcmp(mypacket->sip, table[i].extip, sizeof(mypacket->sip)) != 0) {
-            continue;
-        }
-        if (memcmp(&mypacket->sport, &table[i].extport, sizeof(mypacket->sport)) != 0) {
-            continue;
-        }
-        //packet change
-        memcpy(mypacket->dip, table[i].priip, sizeof(mypacket->dip));
-        printf("NAT Sends Packet to Private Network\n\n");
-        printPacket(mypacket);
-        return;
-    }
-    return;
 }
-
-void receiver_packet(struct packet *mypacket) {
-    int tmpIP[4];
-    int tmpPort;
-    printf("Receiver Receives Packet\n\n");
-
-    printPacket(mypacket);
-
-    printf("Receiver Sends Packet\n\n");
-
-    memcpy(tmpIP, mypacket->sip, sizeof(tmpIP));
-    memcpy(mypacket->sip,mypacket->dip, sizeof(tmpIP));
-    memcpy(mypacket->dip,tmpIP, sizeof(tmpIP));
-
-    tmpPort=mypacket->sport;
-    mypacket->sport=mypacket->dport;
-    mypacket->dport=tmpPort;
-
-    printPacket(mypacket);
-}
-
+//NAT에 도착한 패킷 처리
 void router_private(int *entry, struct NAT table[10], struct packet *mypacket) {
-    printf("NAT Receives Packet from Private Networks\n\n");
 
+    int addPoint;
+    //NAT 받은 패킷 표시
+    printf("NAT Receives Packet from Private Networks\n\n");
     printPacket(mypacket);
 
+    //테이블에 있는지 검사
     for (int i = 0; i < *entry; ++i) {
         if (memcmp(mypacket->sip, table[i].priip, sizeof(mypacket->sip)) != 0) {
-            continue;
+            continue;// 다른경우 다음 엔트리를 검사
         }
         if (memcmp(mypacket->dip, table[i].extip, sizeof(mypacket->dip)) != 0) {
             continue;
@@ -105,37 +89,85 @@ void router_private(int *entry, struct NAT table[10], struct packet *mypacket) {
         if (memcmp(&mypacket->dport, &table[i].extport, sizeof(mypacket->dport)) != 0) {
             continue;
         }
-        //packet change
+        //엔트리가 존재 할경우
         printTable(table, *entry);
-        memcpy(mypacket->sip, routeraddress, sizeof(routeraddress));
+
+        memcpy(mypacket->sip, routeraddress, sizeof(routeraddress)); //패킷변경
+        // 변경된 패킷 출력
         printf("NAT Sends Packet to External Network\n\n");
         printPacket(mypacket);
         return;
     }
 
-    //entry add
+    //테이블에 없을 경우 테이블에 추가
     printf("New Entry\n\n");
-    memcpy(table[*entry].priip, mypacket->sip, sizeof(mypacket->sip));
-    table[*entry].priport = mypacket->sport;
-    memcpy(table[*entry].extip, mypacket->dip, sizeof(mypacket->dip));
-    table[*entry].extport = mypacket->dport;
+    addPoint = *entry;
+    //테이블이 꽉찬경우
+    if (*entry==9) {
+        addPoint=0;
+        *entry= *entry-1;
+    }
+
+    memcpy(table[addPoint].priip, mypacket->sip, sizeof(mypacket->sip));
+    table[addPoint].priport = mypacket->sport;
+    memcpy(table[addPoint].extip, mypacket->dip, sizeof(mypacket->dip));
+    table[addPoint].extport = mypacket->dport;
     *entry = *entry + 1;
 
-    printTable(table, *entry);
+    printTable(table, *entry); //테이블 출력
 
-    // packet change
+    // 패킷 변경
     memcpy(mypacket->sip, routeraddress, sizeof(routeraddress));
+    //변경된 패킷 출력
     printf("NAT Sends Packet to External Network\n\n");
     printPacket(mypacket);
 
-    return;
-
-
 }
+// 목적지 도착한 패킷 처리
+void receiver_packet(struct packet *mypacket) {
+    int tmpIP[4];
+    int tmpPort;
 
+    //도착한 패킷 출력
+    printf("Receiver Receives Packet\n\n");
+    printPacket(mypacket);
+
+    //목적지와 출발지를 바꿈
+    memcpy(tmpIP, mypacket->sip, sizeof(tmpIP));
+    memcpy(mypacket->sip,mypacket->dip, sizeof(tmpIP));
+    memcpy(mypacket->dip,tmpIP, sizeof(tmpIP));
+
+    tmpPort=mypacket->sport;
+    mypacket->sport=mypacket->dport;
+    mypacket->dport=tmpPort;
+    //보낼 패킷 출력
+    printf("Receiver Sends Packet\n\n");
+    printPacket(mypacket);
+}
+//NAT에 도착한 패킷 처리
+void router_public(const int *entry, struct NAT table[10], struct packet *mypacket) {
+    //도착한 패킷 출력
+    printf("NAT Receives Packet from External Networks\n\n");
+    printPacket(mypacket);
+    //테이블에 도착한 패킷이 있는지 검사
+    for (int i = 0; i < *entry; ++i) {
+        if (memcmp(mypacket->sip, table[i].extip, sizeof(mypacket->sip)) != 0) {        //IP검사
+            continue;
+        }
+        if (memcmp(&mypacket->sport, &table[i].extport, sizeof(mypacket->sport)) != 0) { //port검사
+            continue;
+        }
+        //패킷 IP 변경
+        memcpy(mypacket->dip, table[i].priip, sizeof(mypacket->dip));
+        printf("NAT Sends Packet to Private Network\n\n");
+        printPacket(mypacket);
+        return;
+    }
+}
+// NAT테이블 출력하는 함수
 void printTable(struct NAT table[10], int entry) {
     printf("====Current NAT Table Entry====\n");
-    for (int i = 0; i < entry; ++i) {
+    for (int i = 0; i< entry; ++i) {
 
         printf("%d.%d.%d.%d %d %d.%d.%d.%d %d\n",
                table[i].priip[0], table[i].priip[1], table[i].priip[2], table[i].priip[3],
@@ -145,26 +177,7 @@ void printTable(struct NAT table[10], int entry) {
     }
     printf("===============================\n\n");
 }
-
-void sender_packet(struct packet *mypacket) {
-    int dstAddress[4];
-    int dstPort;
-
-    printf("Enter destination address\n");
-    scanf("%d.%d.%d.%d", &dstAddress[0], &dstAddress[1], &dstAddress[2], &dstAddress[3]);
-    printf("Enter destination port\n");
-    scanf("%d", &dstPort);
-
-    printf("\nSender Sends\n\n");
-    memcpy(mypacket->dip, dstAddress, sizeof(dstAddress));
-    mypacket->dport = dstPort;
-    memcpy(mypacket->sip, myaddress, sizeof(myaddress));
-    mypacket->sport = myport;
-
-    printPacket(mypacket);
-
-}
-
+// 패킷을 출력하는 함수
 void printPacket(struct packet *mypacket) {
     printf("====Packet Information====\n");
     printf("Source IP : %d. %d. %d. %d\n", mypacket->sip[0], mypacket->sip[1], mypacket->sip[2], mypacket->sip[3]);
