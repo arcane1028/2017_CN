@@ -16,6 +16,7 @@ struct packet {
     int dport;
 };
 
+
 struct NAT {
     int priip[4];
     int priport;
