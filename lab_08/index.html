@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- META -->
+<meta charset="utf-8">
+<meta name="Generator" content="XpressEngine">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- TITLE -->
+<title>컴퓨터공학과</title>
+<!-- CSS -->
+<link rel="stylesheet" href="/common/css/xe.min.css?20160204141835" />
+<link rel="stylesheet" href="/common/js/plugins/ui/jquery-ui.min.css?20150609174333" />
+<link rel="stylesheet" href="/layouts/ASXE_FLAT/css/layout.css?20160204113659" />
+<link rel="stylesheet" href="/layouts/ASXE_FLAT/css/camera.min.css?20150609174333" />
+<link rel="stylesheet" href="/layouts/ASXE_FLAT/css/color/royal_classic.css?20150206003922" />
+<link rel="stylesheet" href="/layouts/ASXE_FLAT/css/webfont.css?20150813151707" />
+<link rel="stylesheet" href="/layouts/ASXE_FLAT/css/webfont.disable.css?20150206003922" />
+<link rel="stylesheet" href="https://s3.amazonaws.com/icomoon.io/49314/XEIconv10/style.css" />
+<link rel="stylesheet" href="/layouts/ASXE_FLAT/css/ie7/ie7.css?20150206003922" />
+<link rel="stylesheet" href="/layouts/ASXE_FLAT/css/xeicon/xeicon.min.css?20150424021804" />
+<link rel="stylesheet" href="/modules/editor/styles/ckeditor_light/style.css?20150609174337" />
+<link rel="stylesheet" href="/widgets/content/skins/default/css/widget.css?20150730163326" />
+<link rel="stylesheet" href="/files/faceOff/005/015/layout.css?20170302143458" />
+<!-- JS -->
+<!--[if lt IE 9]><script src="/common/js/jquery-1.x.min.js?20150609174332"></script>
+<![endif]--><!--[if gte IE 9]><!--><script src="/common/js/jquery.min.js?20150609174332"></script>
+<!--<![endif]--><script src="/common/js/x.min.js?20150609174333"></script>
+<script src="/common/js/xe.min.js?20150609174333"></script>
+<script src="/layouts/ASXE_FLAT/js/jquery.cookie.js?20150206003922"></script>
+<script src="/layouts/ASXE_FLAT/js/layout.js?20150808174848"></script>
+<script src="/layouts/ASXE_FLAT/js/jquery.easing.min.js?20150609174333"></script>
+<script src="/layouts/ASXE_FLAT/js/camera.min.js?20150609174333"></script>
+<script src="/gt/s3Slider.js"></script>
+<script src="/widgets/content/skins/default/js/content_widget.js?20150609174341"></script>
+<!-- RSS -->
+<link rel="alternate" type="application/rss+xml" title="Site RSS" href="http://computer.cnu.ac.kr/index.php?module=rss&amp;act=rss" /><link rel="alternate" type="application/atom+xml" title="Site Atom" href="http://computer.cnu.ac.kr/index.php?module=rss&amp;act=atom" /><!-- ICON -->
+<link rel="shortcut icon" href="http://computer.cnu.ac.kr/files/attach/xeicon/favicon.ico" />
+
+<style>
+		#rightBanner {
+			box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+			position: absolute;
+			width: 150px;
+			left: 86%;
+			top: 367px;
+			margin-top: 0px;
+			
+			height: 367px;
+		}
+		
+		.SB{
+			box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+			width: 120px;
+			left: 86%;
+			margin-top: 15px;
+			background-color: white;
+			height: 35px;
+			padding: 21px 8px 7px 22px;
+		}
+		
+		strong{
+			color: #36537D;
+			font-size: 14px;
+			vertical-align: middle;
+		}
+		
+	  </style><script>
+//<![CDATA[
+var current_url = "http://computer.cnu.ac.kr/";
+var request_uri = "http://computer.cnu.ac.kr/";
+var current_mid = "smain";
+var waiting_message = "서버에 요청 중입니다. 잠시만 기다려주세요.";
+var ssl_actions = new Array("dispMemberModifyPassword","dispMemberSignUpForm","dispMemberModifyInfo","dispMemberModifyEmailAddress","dispMemberGetTempPassword","dispMemberResendAuthMail","dispMemberLoginForm","dispMemberFindAccount","dispMemberLeave","procMemberLogin","procMemberModifyPassword","procMemberInsert","procMemberModifyInfo","procMemberFindAccount","procMemberModifyEmailAddress","procMemberUpdateAuthMail","procMemberResendAuthMail","procMemberLeave","procMemberFindAccountByQuestion");
+var default_url = "http://computer.cnu.ac.kr/";
+var https_port = 443;xe.current_lang = "ko";
+xe.cmd_find = "찾기";
+xe.cmd_cancel = "취소";
+xe.cmd_confirm = "확인";
+xe.msg_no_root = "루트는 선택 할 수 없습니다.";
+xe.msg_no_shortcut = "바로가기는 선택 할 수 없습니다.";
+xe.msg_select_menu = "대상 메뉴 선택";
+//]]>
+</script>
+</head>
+<body>
+<!-- fake main page -->
+<!--hanmarco-->
+<div id="c1" style="display: none;" ></div><div id="c2" style="display: none;" ><div id="cse_loginInfo">
+			<!-- Login후 Login정보가 들어 있는 네비게이션바 -->
+<form  id="fo_login_widget" action="https://computer.cnu.ac.kr/index.php?act=procMemberLogin" method="post" class="account"><input type="hidden" name="ruleset" value="@login" />
+<input type="hidden" name="error_return_url" value="/">
+<input type="hidden" name="success_return_url" value="/">
+<input type="hidden" name="act" value="procMemberLogin">
+<input type="hidden" name="xe_validator_id" value="widgets/login_info/skins/default/login_form/1">
+<!-- <input type="hidden" name="mid" value=""> -->
+<!-- <input type="hidden" name="vid" value=""> -->
+<!-- <input type="hidden" name="ruleset" value="@login"> -->
+	<!--<a href="#acField">로그인</a>-->
+	<img id="cse_mark" src="/widgets/login_info/skins/cse_mark.png">
+	<fieldset id="acField" style="display: block;">
+		<!--<h2>로그인</h2>-->
+		<div class="idpw">
+			<input name="user_id" id="user_id" type="text" placeholder="아이디" required="">
+			<input name="password" id="user_pw" type="password" placeholder="패스워드" required="">
+			<p class="warning">브라우저를 닫더라도 로그인이 계속 유지될 수 있습니다. 로그인 유지 기능을 사용할 경우 다음 접속부터는 로그인할 필요가 없습니다. 단, 게임방, 학교 등 공공장소에서 이용 시 개인정보가 유출될 수 있으니 꼭 로그아웃을 해주세요.</p>	
+					</div>
+		<input type="submit" value="로그인">
+		
+				
+					
+		<ul class="help">
+			<li><a href="https://computer.cnu.ac.kr/index.php?mid=smain&amp;act=dispMemberSignUpForm">회원가입</a></li>
+			<li><a href="https://computer.cnu.ac.kr/index.php?mid=smain&amp;act=dispMemberFindAccount">ID/PW 찾기</a></li>
+		</ul>
+</br>
+<p style="color: red;text-align: center;font-weight: bold;">※기존 회원 초기 패스워드 알림!! 아이디와 동일합니다.<br>
+  초기 로그인시 패스워드 변경 바랍니다.</p>
+	</fieldset>
+</form>
+<script>
+jQuery(function($){
+	var messageBox = $('#validator_message_box');
+	
+	if(messageBox.css('display') == 'block') {
+		$('#c1').css('display', 'block');
+		$('#c2').css('height', '410px');
+		$('#c2').css('display', 'block');
+	}
+});
+</script>
+		</div></div><!--hanmarco-->
+<!--
+ * Copyright (C) NAVER <http://www.navercorp.com>
+ * @author NAVER (developers@xpressengine.com)
+ *
+ * Find and create module object by mif, act in Request Argument
+ * Set module information
+ *
+ * @mainpage XpressEngine
+ * @section intro introduction
+ *
+ * XE is an opensource and being developed in the opensource project.
+ * For more information, please see the link below.
+ * - Official website: http://www.xpressengine.com
+ * - Offcial Repository: https://github.com/xpressengine/xe-core
+ * 
+ * "XpressEngine (XE)" is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU Lesser General Public 
+ * License as published by the Free Software Foundation; either 
+ * version 2.1 of the License, or (at your option) any later version. 
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ *
+ *
+ * Modified for Asurada Style XpressEngine_Theme.FLAT : Layout 
+ * by Asurada (http://asnote.net)
+ * version 1.0 (2015/01/31)
+-->
+<!-- PHP -->
+<!-- CSS -->
+<!--[if lt IE 8]><![endif]-->
+<!-- JS -->
+<script>
+   var color            = '';
+   var background      = '';
+   var module            = 'page';
+   var document_srl      = '';
+   var act               = '';
+   var act_Comment      = '';
+   var lnb               =  'body sub';
+   var actt = "";
+</script>
+ <script>
+	var myText = "";
+	if('62' == '62') {
+		myText = "메인페이지 입니다.";
+	}else {
+		myText = "메인페이지가 아닙니다.";
+	}
+//	alert("현재 모듈의 srl: " + "62" + "\n현재 사이트의 srl: " + "0" + "\n현재 사이트의 index_module_srl: " + "62" + "따라서 현재 페이지는 " + myText);
+</script>
+ <!-- LAYOUT -->
+<div style="padding-top:7px;padding-bottom:7px;height:66px;">
+	<div class = "aboveHeader" style = "margin:auto;max-width:1190px;height:66px"><div class="side">
+				<ul>
+<li style="margin-top:11px">
+<a href="http://computer.cnu.ac.kr/index.php?mid=int_greet_en" style="width:80px; font-size:15px;"><i class="xi-globus" ></i> English</a>
+</li>
+				           
+				 
+			<li id = "login_button_c" style="margin-left:0.9em;" >
+				Login
+			</li>						</ul>
+				
+		</div>
+		<a href="" class ="aboveHeaderTitle">
+			<img src="http://computer.cnu.ac.kr/files/attach/images/15005/dded82bfbb1de1763f4f03aa1604d2ad.png" alt="logo" border="0" style="width:5.5em;float:left" />
+			<span style="display:inline-block;font-size: 2.6em;font-weight: bold;margin-left:11px; margin-top:5px" >충남대학교 컴퓨터공학과</span><br/>
+			<span style="font-size: 1.2em;font-weight: 500;margin-left:11px" >Department of Computer Science & Engineering</span>
+		</a>		
+	</div>
+</div>
+<div class="container fixed_header" style="padding:0px">
+   <p class="skip"><a href="#content">메뉴 건너뛰기</a></p>
+    <div class="header_wrap" style = "top:80px;height:50px;text-align:center">
+        <header class="header" style = "display:inline-block;width:auto" >
+		
+			<!-- GNB -->
+            <nav class="gnb" id="gnb">
+            <ul>
+            <li class="active">
+				<a href="http://computer.cnu.ac.kr/index.php?mid=smain" Home>Home</a>
+                           </li><li>
+				<a href="http://computer.cnu.ac.kr/index.php?mid=int_greet" 학과소개>학과소개</a>
+               <ul class="depth2">               
+               <li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=int_greet">교육목표</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=int_history">연혁</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=int_prof">구성원소개</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=int_yeon">연구분야</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=int_map">찾아오시는길</a>
+               </li>               </ul>            </li><li>
+				<a href="http://computer.cnu.ac.kr/index.php?mid=int_edu2014" 교육>교육</a>
+               <ul class="depth2">               
+               <li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=ungrad_admission">입학안내</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=ungrad_scholarship">장학안내</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=int_edu2014">교과과정</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=int_subj2014">교과목이수체계도</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=grad">졸업요건</a>
+               </li>               </ul>            </li><li>
+				<a href="http://computer.cnu.ac.kr/index.php?mid=int_ugreet" 대학원>대학원</a>
+               <ul class="depth2">               
+               <li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=int_ugreet">대학원소개</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=grad_admission">입학안내</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=int_uedu">교과과정</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=unotice">공지사항</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=ujob">취업정보</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=un_sub_2015_2">교과목 게시판</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=past_un_sub">지난교과목게시판</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=uhackj">자료실</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=board_PiTJ74">강의실예약</a>
+               </li>               </ul>            </li><li>
+				<a href="http://computer.cnu.ac.kr/index.php?mid=notice" 공지사항>공지사항</a>
+               <ul class="depth2">               
+               <li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=notice">학사공지</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=gnotice">일반소식</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=saccord">사업단소식</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=job">취업정보</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=event">CSE News</a>
+               </li>               </ul>            </li><li>
+				<a href="http://computer.cnu.ac.kr/index.php?mid=stub" 커뮤니티>커뮤니티</a>
+               <ul class="depth2">               
+               <li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=stub">학생회</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=u1class">1학년</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=u2class">2학년</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=u3class">3학년</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=u4class">4학년</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=club">동아리</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=acmstudy">ACM Study</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=gallery">학과사진갤러리</a>
+               </li>               </ul>            </li><li>
+				<a href="http://computer.cnu.ac.kr/index.php?mid=hackj" 자료실>자료실</a>
+               <ul class="depth2">               
+               <li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=hackj">학사자료실</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=teaj">교원자료실</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=abeekj">Abeek자료실</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=roomschedule">산학프로젝트자료실</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=deve">학과주관대회</a>
+               </li>               </ul>            </li><li>
+				<a href="http://computer.cnu.ac.kr/index.php?mid=sub_2016_2_1" 교과목게시판>교과목게시판</a>
+               <ul class="depth2">               
+               <li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=sub_2016_2_1">1학년 설강과목</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=sub_2016_2_2">2학년 설강과목</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=sub_2016_2_3">3학년 설강과목</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=sub_2016_2_4">4학년 설강과목</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=subject_old">지난교과목게시판</a>
+               </li>               </ul>            </li><li>
+				<a href="http://computer.cnu.ac.kr/index.php?mid=intro_performbusiness" 수행사업>수행사업</a>
+               <ul class="depth2">               
+               <li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=intro_performbusiness">사업소개</a>
+               </li><li>
+                  <a href="http://wise.cnu.ac.kr" target="_blank">SW 중심대학사업단</a>
+               </li><li>
+                  <a href="http://ck9.cnu.ac.kr/html/ict/index.html" target="_blank">국방 ICT 융합인력 양성사업단</a>
+               </li><li>
+                  <a href="http://computer.cnu.ac.kr/index.php?mid=samsung_scsc">삼성 SST/SCSC</a>
+               </li><li>
+                  <a href="http://linc.cnu.ac.kr/" target="_blank">LINC 사업단</a>
+               </li>               </ul>            </li>            </ul> 
+		
+            </nav>
+          <!-- /GNB -->
+            
+        </header>
+    </div>
+      
+      <!-- VISUAL  -->
+<!--    <div class="visual sub">
+       <span class="bg_img" style="background-image:url('')"></span>
+        <span class="mask"></span>
+        <div class="sub_title">
+             <div class="page_location">
+                <ul>
+            <li><a href="" title="Home">Home</a></li>
+            <li><a href="http://computer.cnu.ac.kr/index.php?mid=smain">Home</a>      
+                           </li>            </ul>
+            </div>         
+        </div>
+   </div> -->
+   <!-- /VISUAL -->
+ <div class="body sub no_lnb">
+        
+      <!-- LNB -->
+        <nav class="lnb">
+         <ul>
+         <li>
+         <a href="/index.php?mid=int_greet" class="title">학과소개</a> 
+            
+            <ul class="depth2">               
+            <li>
+            <a href="/index.php?mid=int_greet">학과소개</a>                                       </li><li>
+            <a href="/index.php?mid=int_history">연혁</a>                                       </li><li>
+                        <a href="/index.php?mid=int_professor"><span>구성원소개</span></a>                           </li><li>
+            <a href="/index.php?mid=int_yeon">연구분야</a>                                       </li><li>
+            <a href="/index.php?mid=int_map">찾아오시는 길</a>                                       </li><li>
+                        <a href="/index.php?mid=page_zZJy12"><span>main test</span></a>               <ul class="depth3">
+                  <li class="active">
+                  <a href="/index.php?mid=page_WVOu84">길탁</a>
+               </li><li>
+                  <a href="/index.php?mid=Test_main">준영</a>
+               </li><li>
+                  <a href="/index.php?mid=page_zZJy12">상현</a>
+               </li><li>
+                  <a href="/index.php?mid=page_xUsu20">상현2</a>
+               </li>               </ul>            </li>            </ul>         </li>         </ul>     
+        </nav>      
+        <!-- /LNB -->
+  <!--GT image-->
+	<div id="slider1" style="display : none">
+        <ul id="slider1Content">
+            <li class="slider1Image" style="display: list-item;">
+                <img src="/gt/11.jpg" alt="">
+              <!--  <span class="bottom"><strong>공대5호관사진</br>어떤 내용이 들어가야할까요</strong></span></li>-->
+            </li><li class="slider1Image">
+            <!--    <a href=""><img src="/files/attach/images/gt/7.jpg" alt="2" /></a>
+                <span class="right"><strong>공대5호관사진2</strong></span></li>
+            <div class="clear slider1Image"></div>-->
+        </li></ul>
+    </div>
+	
+	<div class="visual" style="margin-bottom : 11px; height: 239px;">
+		<!-- 슬라이드 -->
+			<div class="camera_wrap">
+							<div data-src="http://computer.cnu.ac.kr/files/attach/images/15005/f5c24c959888f4eea2a4542ac5326fcf.jpg">
+									</div>				<div data-src="http://computer.cnu.ac.kr/files/attach/images/15005/2dac7fa6c2f9ca30b85cc48bef671b74.jpg">
+									</div>				<div data-src="http://computer.cnu.ac.kr/files/attach/images/15005/fcb247a276e1a8c63297d9851449749f.jpg">
+									</div>				<div data-src="http://computer.cnu.ac.kr/files/attach/images/15005/f4ddac0e2e6c2a6af5e4a25b8d3c3a24.jpg">
+									</div>				<div data-src="http://computer.cnu.ac.kr/files/attach/images/15005/3cd162c71d8a9c5a20852f61746694b1.JPG">
+									</div>						</div>
+			<!-- END:슬라이드 -->
+	</div>
+	
+<!---->
+<script>
+jQuery(function($){
+    $(document).ready(function() { 
+    $('#slider1').s3Slider({
+        timeOut: 3000
+    });
+	
+	$("#quick")
+.mouseenter(function() {
+        $("#subQuickMenu").slideDown("slow");
+  }).mouseleave(function() {
+        $("#subQuickMenu").slideUp("slow");
+  });
+	
+	
+});
+		// slide
+	if($.isFunction($.fn.camera) && $(".camera_wrap").length) {
+		$(".camera_wrap").camera({
+			height: "240px",
+			pagination: true,
+			thumbnails: false,
+			playPause: false,
+			loader: "none",
+			fx: "simpleFade",
+			time: 3000
+		});
+	}
+});
+     
+</script>
+       <!--/GT image-->
+     <!--GT--> 
+<!--QuickMenu-->
+      <div class="quickmenu" id="quick" style = "z-index:10; cursor: pointer;">
+         <ul style="list-style:none;text-align:center">
+         <li class="quickMenu" style="background-color:#3a5795;color:white;font-size:20px;padding:8px;">QuickMenu</li>
+                <!--학부생-->
+			<div id="subQuickMenu" style="display : none;">
+						<li class="qlink"><a href="http://plus.cnu.ac.kr/html/kr/index.html" target="_blank">충남대학교</a></li>
+			<li class="qlink"><a href="/index.php?mid=ungrad_admission" target="_blank">입학정보</a></li>
+			<li class="qlink"><a href="http://plus.cnu.ac.kr/_prog/academic_calendar/?site_dvs_cd=kr&menu_dvs_cd=05020101" target="_blank">학사일정</a></li>
+			<li class="qlink"><a href="http://csenew1.cnu.ac.kr/index.php?mid=page_jgCK06" target="_blank">동아리소개</a></li>
+			<li class="qlink"><a href="" target="_blank">컴공소식지</a></li>
+			<li class="qlink"><a href="http://dorm.cnu.ac.kr/html/kr/" target="_blank">학생생활관</a></li>
+			<li class="qlink"><a href="http://csenew1.cnu.ac.kr/index.php?mid=int_map" target="_blank">찾아오시는길</a></li>
+			</div>
+						   
+  <!--회원그룹확인 <pre>1</pre>-->
+		</ul>
+      </div>
+	  
+	  <div id = "rightBanner">
+		<a href="http://wise.cnu.ac.kr"><div class = "SB"><strong>SW중심대학사업단</strong></div></a>
+		<a href="http://ck9.cnu.ac.kr/html/ict/"><div class = "SB"><strong>국방 ICT <br><span style="font-size : 13px">융합인력양성사업단</span></strong></div></a>
+		<a href="http://computer.cnu.ac.kr/index.php?mid=intro_performbusiness"><div class = "SB"><strong> 삼성 SST/SCSC</strong></div></a>
+		<a href="http://linc.cnu.ac.kr/"><div class = "SB"><strong>LINC 사업단</strong></div></a>
+		<a href="http://computer.cnu.ac.kr/index.php?mid=ungrad_admission"><div class = "SB"><strong>입학정보</strong></div></a>
+	  </div>
+<!--QuickMenu-->
+<script>
+function closeWin() {  
+    document.all['divpop'].style.visibility = "hidden"; 
+} 
+</script>
+      <!--popup -->
+ <!-- <div id="divpop" style="position:absolute;left:600px;top:47px;z-index:200;visibility:visible;background-color:white;"> 
+<table width=400 height=200 cellpadding=2 cellspacing=0> 
+<tr> 
+    <td style="border:1px #666666 solid;align:center;"> 
+    <p>회원가입시 양식을 지켜주세요.</p>
+    <p> 대학원생 이라면  g201060605</p>
+    <p>학부생 이라면    u201060605</p>
+    <p>양식이 맞지 않으면 승인이 되지 않습니다.</p>
+    </td> 
+</tr> 
+<tr> 
+        <form name="notice_form"><input type="hidden" name="error_return_url" value="/" /><input type="hidden" name="act" value="" /><input type="hidden" name="mid" value="smain" /><input type="hidden" name="vid" value="" /> 
+    <td align=right >  
+        <a href="javascript:closeWin();"><B>[닫기]</B></a> 
+    </td> 
+</tr> 
+        </form> 
+</table> 
+</div> -->
+      <!-- CONTENT -->
+      <div class="content" id="content">
+         <div class="xe_content xe-widget-wrapper " style="float: left; width: 485px; height: 43px; border: 0px solid rgb(0, 0, 0); margin: 0px 20px 0px 10px; background-image: none; background-position: 0% 0%; background-repeat: repeat;"><div style="padding:0px 5px 0px 10px !important;"><p><span style="font-size:20px;"><span style="line-height: 42px;"><a href="http://computer.cnu.ac.kr/index.php?mid=notice">학사공지</a></span></span><span style="font-size: 28px; line-height: 42px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;</span><a href="http://csenew1.cnu.ac.kr/index.php?mid=notice"><img src="http://csenew1.cnu.ac.kr/files/attach/images/62/062/3b4e8ec64fc4a06d86ba862ced109507.jpg" alt="00cbbaf5a14b5883979b1069d0be9541.jpg" style="" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p></div></div><div class="xe_content xe-widget-wrapper " style="float: left; width: 485px; height: 43px; border: 0px solid rgb(0, 0, 0); margin: 0px; background-image: none; background-position: 0% 0%; background-repeat: repeat;"><div style="padding:0px 5px 0px 10px !important;"><p><span style="font-size:20px;"><span style="line-height: 42px;"><a href="http://csenew1.cnu.ac.kr/index.php?mid=gnotice">일반소식</a></span></span>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span style="font-size: 28px; line-height: 42px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span><a href="http://csenew1.cnu.ac.kr/index.php?mid=gnotice" style="font-size: 28px; line-height: 42px;"><img src="http://csenew1.cnu.ac.kr/files/attach/images/62/062/3b4e8ec64fc4a06d86ba862ced109507.jpg" alt="00cbbaf5a14b5883979b1069d0be9541.jpg" style="" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p></div></div><div class="xe-widget-wrapper " style="float: left; width: 485px; height: 200px; border-color: rgb(153, 153, 153) rgb(0, 0, 0) rgb(0, 0, 0); border-width: 2px 0px 0px; border-style: solid; margin: 0px 20px 10px 10px; background-image: none; background-position: 0% 0%; background-repeat: repeat;"><div style="*zoom:1;padding:20px 10px 20px 10px !important;"><div class="widgetContainer">
+                    <table class="widgetTableA" border="1" cellspacing="0">
+        <tbody>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42530">[★★★동기계절수강신청 : 11.13~11.15(수) 18시까지 ★★★]</a>
+                                                    <span class="icon"></span>
+                    </td>
+                    <td class="time"><span class="date">2017-11-06</span> <span class="hour">10:41</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42318">2017 동기 계절제 백마인턴십 실시 안내 (학생신청: 2017.11.6.(월)~2017.11.19(일)까지)</a>
+                                                    <span class="icon"><img src="http://computer.cnu.ac.kr/modules/document/tpl/icons/file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                    <td class="time"><span class="date">2017-10-27</span> <span class="hour">20:49</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42271">[4학년 졸업대상자] 2017년 전기 졸업논문 심사(제출) 대상자 확인 (2017.10.31.(화)까지 확인 필)</a>
+                                                    <span class="icon"><img src="http://computer.cnu.ac.kr/modules/document/tpl/icons/file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                    <td class="time"><span class="date">2017-10-26</span> <span class="hour">17:34</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42250">[★★★ 강의 중간 평가 실시 안내 ★★★]</a>
+                                                    <span class="icon"></span>
+                    </td>
+                    <td class="time"><span class="date">2017-10-26</span> <span class="hour">11:28</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42209">[★★★ 2017학년도 전기(2018년2월졸업)졸업 예정자 명부 확인 안내:총162명임:(10.31일까지) ★★★]</a>
+                                                    <span class="icon"></span>
+                    </td>
+                    <td class="time"><span class="date">2017-10-25</span> <span class="hour">09:53</span></td>
+                </tr>
+                </tbody>
+    </table>
+        </div>
+</div></div><div class="xe-widget-wrapper " style="float: left; width: 485px; height: 200px; border-color: rgb(153, 153, 153) rgb(0, 0, 0) rgb(0, 0, 0); border-width: 2px 0px 0px; border-style: solid; margin: 0px 0px 10px; background-image: none; background-position: 0% 0%; background-repeat: repeat;"><div style="*zoom:1;padding:20px 10px 20px 10px !important;"><div class="widgetContainer">
+                    <table class="widgetTableA" border="1" cellspacing="0">
+        <tbody>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42534">[1-3학년 전체] 충남대학교 학부생 심리·사회·생활 측정 척도 개발을 위한 전수조사 (온라인설문; 2017.11.1(수)~11.10(금))</a>
+                                                    <span class="icon"><img src="http://computer.cnu.ac.kr/modules/document/tpl/icons/file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                    <td class="time"><span class="date">2017-11-06</span> <span class="hour">10:59</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42453">2017학년도 동계 CRC(CNU Readers Club) 프로그램 안내 (서류제출: 2017.11.3.(금)~11.15(수))</a>
+                                                    <span class="icon"><img src="http://computer.cnu.ac.kr/modules/document/tpl/icons/file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                    <td class="time"><span class="date">2017-11-02</span> <span class="hour">19:04</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42406">[국방ICT종합학술대회] 졸업작품전시회 구두 및 포스터 작품 신청 안내 (신청서 제출:11.09(목)까지)</a>
+                                                    <span class="icon"><img src="http://computer.cnu.ac.kr/modules/document/tpl/icons/file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                    <td class="time"><span class="date">2017-11-01</span> <span class="hour">18:51</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42372">[창의SW축전] 2017 창의SW축전-DevDay-창의작품경진대회-동아리연합성과발표회 개최 및 참여 안내 (신청서제출:2017.11.9.(목)까지)</a>
+                                                    <span class="icon"><img src="http://computer.cnu.ac.kr/modules/document/tpl/icons/file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                    <td class="time"><span class="date">2017-10-31</span> <span class="hour">19:35</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42298">[대회] [한국정보과학회] 참가권유 : KSC2017_SW 구현/데모 경진대회 (접수마감: 2017.11.6(월)까지)</a>
+                                                    <span class="icon"><img src="http://computer.cnu.ac.kr/modules/document/tpl/icons/file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                    <td class="time"><span class="date">2017-10-27</span> <span class="hour">14:16</span></td>
+                </tr>
+                </tbody>
+    </table>
+        </div>
+</div></div><div class="xe_content xe-widget-wrapper " style="float: left; width: 485px; height: 38px; border: 0px solid rgb(0, 0, 0); margin: 10px 20px 0px 10px; background-image: none; background-position: 0% 0%; background-repeat: repeat;"><div style="padding:0px 5px 0px 10px !important;"><p><span style="font-size:20px;"><span style="line-height: 42px;"><a href="http://csenew1.cnu.ac.kr/index.php?mid=unotice">대학원공지 </a></span></span><span style="font-size: 28px; line-height: 42px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><a href="http://csenew1.cnu.ac.kr/index.php?mid=unotice"><img src="http://csenew1.cnu.ac.kr/files/attach/images/62/062/3b4e8ec64fc4a06d86ba862ced109507.jpg" alt="00cbbaf5a14b5883979b1069d0be9541.jpg" style="" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p></div></div><div class="xe_content xe-widget-wrapper " style="float: left; width: 488px; height: 38px; border: 0px solid rgb(0, 0, 0); margin: 10px 20px 0px 0px; background-image: none; background-position: 0% 0%; background-repeat: repeat;"><div style="padding:0px 5px 0px 10px !important;"><p><span style="font-size:20px;"><span style="line-height: 42px;"><a href="http://csenew1.cnu.ac.kr/index.php?mid=event">CSE News</a></span></span><span style="font-size: 28px; line-height: 42px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><a href="http://csenew1.cnu.ac.kr/index.php?mid=event"><img src="http://csenew1.cnu.ac.kr/files/attach/images/62/062/3b4e8ec64fc4a06d86ba862ced109507.jpg" alt="00cbbaf5a14b5883979b1069d0be9541.jpg" style="" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p></div></div><div class="xe-widget-wrapper " style="float: left; width: 485px; height: 203px; border-color: rgb(153, 153, 153) rgb(0, 0, 0) rgb(0, 0, 0); border-width: 2px 0px 0px; border-style: solid; margin: 0px 20px 0px 10px; background-image: none; background-position: 0% 0%; background-repeat: repeat;"><div style="*zoom:1;padding:20px 10px 20px 10px !important;"><div class="widgetContainer">
+                    <table class="widgetTableA" border="1" cellspacing="0">
+        <tbody>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42208">졸업요건] 2017년 2학기 대학원 수료예정자 - 예비 수료사정 결과 안내-10월27일까지 확인</a>
+                                                    <span class="icon"></span>
+                    </td>
+                    <td class="time"><span class="date">2017-10-25</span> <span class="hour">09:50</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42171">2017학년도 제2학기 등록금 추가 납부 안내</a>
+                                                    <span class="icon"></span>
+                    </td>
+                    <td class="time"><span class="date">2017-10-23</span> <span class="hour">15:03</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=42170">2017학년도 전기 대학원 석·박사학위 청구논문 접수자 논문심사료 납부 안내</a>
+                                                    <span class="icon"></span>
+                    </td>
+                    <td class="time"><span class="date">2017-10-23</span> <span class="hour">14:35</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=41719">[졸업요건] 2017학년도 제2학기 대학원 전공시험 결과 안내</a>
+                                                    <span class="icon"></span>
+                    </td>
+                    <td class="time"><span class="date">2017-09-29</span> <span class="hour">09:47</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=41678">2018학년도 대학원 1차전형 신입생 모집안내</a>
+                                                    <span class="icon"><img src="http://computer.cnu.ac.kr/modules/document/tpl/icons/file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                    <td class="time"><span class="date">2017-09-26</span> <span class="hour">17:26</span></td>
+                </tr>
+                </tbody>
+    </table>
+        </div>
+</div></div><div class="xe-widget-wrapper " style="float: left; width: 488px; height: 202px; border-color: rgb(153, 153, 153) rgb(0, 0, 0) rgb(0, 0, 0); border-width: 2px 0px 0px; border-style: solid; margin: 0px; background-image: none; background-position: 0% 0%; background-repeat: repeat;"><div style="*zoom:1;padding:20px 10px 20px 10px !important;"><div class="widgetContainer">
+                    <table class="widgetTableA" border="1" cellspacing="0">
+        <tbody>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=41640">[수상]  제2회 소프트웨어중심대학 해커톤(전소향, 김하은) 및  Google Summer of Code (나동희) 에서 수상</a>
+                                                    <span class="icon"><img src="http://computer.cnu.ac.kr/modules/document/tpl/icons/file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                    <td class="time"><span class="date">2017-09-25</span> <span class="hour">13:27</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=40643">[수상]  ‘넥슨 아이디어 챌린’ 에서  김진욱, 김현지  대상 수상</a>
+                                                    <span class="icon"></span>
+                    </td>
+                    <td class="time"><span class="date">2017-09-01</span> <span class="hour">10:32</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=34896">임베디드시스템 연구실 딥러닝기술 ACM Embedded System Design Challenge에서 3등 수상</a>
+                                                    <span class="icon"><img src="http://computer.cnu.ac.kr/modules/document/tpl/icons/file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                    <td class="time"><span class="date">2017-02-27</span> <span class="hour">09:44</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=32368">2016년 창의SW축전 수상팀 공지</a>
+                                                    <span class="icon"><img src="http://computer.cnu.ac.kr/modules/document/tpl/icons/file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                    <td class="time"><span class="date">2016-12-01</span> <span class="hour">21:00</span></td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://computer.cnu.ac.kr/index.php?document_srl=32302">최훈 교수, 소프트웨어 산업발전 대통령 표창</a>
+                                                    <span class="icon"><img src="http://computer.cnu.ac.kr/modules/document/tpl/icons/file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                    <td class="time"><span class="date">2016-11-29</span> <span class="hour">15:49</span></td>
+                </tr>
+                </tbody>
+    </table>
+        </div>
+</div></div>      </div>
+      <!-- /CONTENT --> 
+   </div>
+         
+   <div class="site_map">
+	<div class='site_mapUnder'>
+		<table>
+			<tr>
+				<td><a href="http://computer.cnu.ac.kr/index.php?mid=guide_personal">개인정보 처리방침</a></td>
+				<td><a href="http://computer.cnu.ac.kr/index.php?mid=guide_email">이메일 무단수집거부</a></td>
+				<td><a href="http://computer.cnu.ac.kr/index.php?mid=int_map">찾아오시는 길</a></td>
+				<td><i class="xi-envelope xi-x"></i> podo@cnu.ac.kr</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+</div>
+	<div class="footer_wrap">
+        <footer class="footer">
+            <div class="f_gnb"></div>
+		 <div class = "underBar">
+         <div class="f_copyright">                            
+                     </div><br/><br/>
+         <div class="f_info">
+                <p class="f_logo"><a href=""><img src="http://computer.cnu.ac.kr/files/attach/images/15005/17256133221dace97acd660c0dde90b9.png" alt="logo" border="0" /></a></p>   
+            </div>         
+         <div class="f_text" >                            
+            <p><div>
+<p>우)34134 대전광역시 유성구 대학로 99 충남대학교 공대5호관 406호 컴퓨터공학과</p>
+<p>대학원: TEL: 042-821-5441 / 학 부: TEL: 042-821-6651, FAX: 042-822-4997</p>
+<p>Copyright(C)2015 ProBrain All Rights Reserved. <i class="xi-envelope xi-x"></i> probrain@cnu.ac.kr</p>
+</div></p>
+         </div>  
+		 </div> 
+        </footer>
+    </div>
+</div>
+<!-- /LAYOUT --><!-- ETC -->
+<div class="wfsr"></div>
+<script src="/addons/autolink/autolink.js?20150609174329"></script><script src="/common/js/plugins/ui/jquery-ui.min.js?20150609174333"></script><script src="/common/js/plugins/ui/jquery.ui.datepicker-ko.js?20150609174333"></script><script src="/addons/resize_image/js/resize_image.min.js?20150609174330"></script><script src="/files/cache/ruleset/091de5cb8007eef3335d65f1db48beb2.ko.js?20161223180129"></script></body>
+</html>
