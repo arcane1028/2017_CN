@@ -31,7 +31,7 @@ int main(int argc, char **argv)
     struct sockaddr_in saddr;
 
     unsigned char *buffer = (unsigned char *)malloc(PACKET_LENGTH);
-
+    //소켓 설정
     sock_raw = socket(AF_INET, SOCK_RAW, IPPROTO_TCP);
     if (sock_raw < 0)
     {
@@ -41,11 +41,13 @@ int main(int argc, char **argv)
     {
         addrlen = sizeof(saddr);
         memset(buffer, 0x00, PACKET_LENGTH);
+        // 데이터를 읽음
         readn = recvfrom(sock_raw, buffer, PACKET_LENGTH, 0, (struct sockaddr * )&saddr, &addrlen);
         if (readn<0)
         {
             return 1;
         }
+        // 패킷 출력
         PrintPacket(buffer, readn);
     }
     close(sock_raw);
@@ -54,11 +56,13 @@ int main(int argc, char **argv)
 
 void PrintPacket(unsigned char * buffer, int size)
 {
+    // 패킷헤더 추출
     struct iphdr *iph = (struct iphdr*)buffer;
     printf("protocol : %d\n",iph->protocol);
+    // 프로토콜 추출
     switch (iph->protocol)
     {
-        case IPPROTO_TCP:
+        case IPPROTO_TCP: // TCP인 경우
             PrintTcp(buffer, size);
             break;
         default:
@@ -71,9 +75,9 @@ void PrintTcp(unsigned char * buf, int size)
     unsigned char *data;
 
     struct iphdr *iph = (struct iphdr *)buf;
-    iphdrlen = iph->ihl*4;
-    struct tcphdr *tcph = (struct tcphdr*)(buf + iphdrlen);
-
+    iphdrlen = iph->ihl*4; //IP 헤더 길이
+    struct tcphdr *tcph = (struct tcphdr*)(buf + iphdrlen); //IP의 데이터 추출
+    // TCP 데이터 추출
     data = (unsigned char * )(buf + (iph->ihl*4) + (tcph->doff*4) );
     printf("%s", data);
 
