@@ -37,7 +37,6 @@ void PrintIp(unsigned char *buffer, int size);
 
 FILE *file;
 
-
 int main(int argc, char **argv)
 {
     int readn;
@@ -45,30 +44,32 @@ int main(int argc, char **argv)
     int sock_raw;
     struct sockaddr_in saddr;
     unsigned char *buffer = (unsigned char *) malloc(PACKET_LENGTH);
-
+    //log.txt에 쓰기 설정
     file = fopen("log.txt", "w");
     if (file == NULL)
     {
         printf("file");
     }
-
+    //패킷 캡쳐 ETH_P_ALL은 데이터 링크가 받는 패킷을 반환하는 성정
     sock_raw = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
     if (sock_raw < 0)
     {
         printf("socket");
-
         return 1;
     }
+
     while (1)
     {
         addrlen = sizeof(saddr);
         memset(buffer, 0x00, PACKET_LENGTH);
+        //패킷 수신
         readn = recvfrom(sock_raw, buffer, PACKET_LENGTH, 0, (struct sockaddr *) &saddr, &addrlen);
         if (readn < 0)
         {
             printf("readn");
             return 1;
         }
+        // 패킷 출력
         PrintPacket(buffer, readn);
     }
     close(sock_raw);
@@ -77,8 +78,10 @@ int main(int argc, char **argv)
 
 void PrintPacket(unsigned char *buffer, int size)
 {
+    // 데이터 링크에서 왔으므로 이더넷 헤더를 포함함
+    // ip해더를 찾기위해 이더넷 헤더 크기만큼 이동
     struct iphdr *iph = (struct iphdr *) (buffer + sizeof(struct ethhdr));
-    printf("protocol : %d\n", iph->protocol);
+    //프로토콜에 따라 실행
     switch (iph->protocol)
     {
         case IPPROTO_TCP:
@@ -99,20 +102,21 @@ void PrintPacket(unsigned char *buffer, int size)
             break;
     }
 }
-
+// UDP 헤더 출력
 void PrintUcp(unsigned char *buffer, int size)
 {
     unsigned int iphdrlen;
     unsigned char *data;
     struct iphdr *iph = (struct iphdr *) buffer;
     iphdrlen = iph->ihl * 4;
+    // udp 헤더의 위치를 구함
     struct udphdr *udph = (struct udphdr*)(buffer + iphdrlen  + sizeof(struct ethhdr));
 
     fprintf(file, "\n============UDP Packet=============\n");
-
+    //이더넷, IP 헤더 출력
     PrintEthernet(buffer, size);
     PrintIp(buffer, size);
-
+    // UDP 헤더 출력
     fprintf(file, "\n");
     fprintf(file , "UDP Header\n");
     fprintf(file , " |-Source Port      : %d\n" , ntohs(udph->source));
@@ -122,20 +126,21 @@ void PrintUcp(unsigned char *buffer, int size)
 
     fprintf(file, "\n===================================\n");
 }
-
+//ICMP 헤더 출력
 void PrintIcmp(unsigned char *buffer, int size)
 {
     unsigned int iphdrlen;
     unsigned char *data;
     struct iphdr *iph = (struct iphdr *) buffer;
     iphdrlen = iph->ihl * 4;
+     // icmp 헤더의 위치를 구함
     struct icmphdr *icmph = (struct icmphdr *)(buffer + iphdrlen  + sizeof(struct ethhdr));
 
     fprintf(file, "\n============ICMP Packet=============\n");
-
+    //이더넷, IP 헤더 출력
     PrintEthernet(buffer, size);
     PrintIp(buffer, size);
-
+    // ICMP 헤더 출력
     fprintf(file, "\n");
     fprintf(file , "ICMP Header\n");
     fprintf(file , " |-Type : %d  ",icmph->type);
@@ -144,25 +149,28 @@ void PrintIcmp(unsigned char *buffer, int size)
 
     fprintf(file, "\n===================================\n");
 }
-
+//TCP 헤더 출력
 void PrintTcp(unsigned char *buffer, int size)
 {
     unsigned int iphdrlen;
     struct iphdr *iph = (struct iphdr *) buffer;
     iphdrlen = iph->ihl * 4;
+    // tcp 헤더의 위치를 구함
     struct tcphdr *tcph = (struct tcphdr *) (buffer + iphdrlen + sizeof(struct ethhdr));
 
     fprintf(file, "\n============TCP Packet=============\n");
-
+    //이더넷, IP 헤더 출력
     PrintEthernet(buffer, size);
     PrintIp(buffer, size);
-
+    // TCP 헤더 출력
     fprintf(file, "\n");
     fprintf(file, "TCP Header\n");
     fprintf(file, " |-Source Port          : %d\n", ntohs(tcph->source));
     fprintf(file, " |-Destination Port     : %d\n", ntohs(tcph->dest));
+    // 오버플로우가 발생하므로 unsigned로 출력
     fprintf(file, " |-Sequence Number      : %u\n", ntohl(tcph->seq));
     fprintf(file, " |-Acknowledge Number   : %u\n", ntohl(tcph->ack_seq));
+
     fprintf(file, " |-Header Length        : %d DWORDS or %d BYTES \n", tcph->doff, tcph->doff * 4);
     fprintf(file, " |-Urgent Flag          : %d\n", tcph->urg);
     fprintf(file, " |-Acknowledgement Flag : %d\n", tcph->ack);
@@ -176,20 +184,21 @@ void PrintTcp(unsigned char *buffer, int size)
 
     fprintf(file, "\n===================================\n");
 }
-
+//IP 헤더 출력
 void PrintIp(unsigned char *buffer, int size)
 {
     struct sockaddr_in src;
     struct sockaddr_in dest;
 
     struct iphdr *iph = (struct iphdr *) (buffer + sizeof(struct ethhdr));
-
+    // iphdr의 주소는 int 타입
+    // 출력하기 위해 sockaddr_in 구조체로 변환
     memset(&src, 0, sizeof(src));
     src.sin_addr.s_addr = iph->saddr;
 
     memset(&dest, 0, sizeof(dest));
     dest.sin_addr.s_addr = iph->daddr;
-
+    //IP 헤더 출
     fprintf(file, "\n");
     fprintf(file, "IP Header\n");
     fprintf(file, " |-IP Version        : %d\n", iph->version);
@@ -204,11 +213,11 @@ void PrintIp(unsigned char *buffer, int size)
     fprintf(file, " |-Destination IP    : %s\n", inet_ntoa(dest.sin_addr));
 
 }
-
+//이더넷 헤더 출력
 void PrintEthernet(unsigned char *buffer, int size)
 {
     struct ethhdr *eth = (struct ethhdr *) buffer;
-
+    //이더넷 헤더 출력
     fprintf(file, "\n");
     fprintf(file, "Ethernet Header\n");
     fprintf(file, " |-Destination Address : %.2X-%.2X-%.2X-%.2X-%.2X-%.2X \n", eth->h_dest[0], eth->h_dest[1],
@@ -218,4 +227,3 @@ void PrintEthernet(unsigned char *buffer, int size)
     fprintf(file, " |-Protocol            : %d \n", eth->h_proto);
 
 }
-
