@@ -16,37 +16,41 @@
 #define Q_DOWNLOAD 2
 #define Q_LIST 3
 
-struct Cquery{
+struct Cquery
+{
     int command;
-    char fname[256];
+    char filename[256];
 };
 
-int download(int sockfd, char *file)
+int file_download(int sockfd, char *file)
 {
-    struct Cquery query;int fd;
+    struct Cquery query;
+    int fd;
     int readn, writen;
     char buf[MAXLINE];
 
-    if( (fd = open(file, O_WRONLY)) == -1 )
+    if ((fd = open(file, O_WRONLY | O_CREAT)) == -1)
     {
+        printf("download open error\n");
         return -1;
     }
 
     memset(buf, 0x00, MAXLINE);
+
     memset(&query, 0x00, sizeof(query));
     query.command = htonl(Q_DOWNLOAD);
+    sprintf(query.filename, "%s", file);
 
-    sprintf(query.fname, "%s", file);
-
-    if(send(sockfd, (void *)&query, sizeof(query), 0) <=0)
+    if (send(sockfd, (void *) &query, sizeof(query), 0) <= 0)
     {
         return -1;
     }
-    while((readn = recv(sockfd, buf, MAXLINE, 0)) > 0)
+    while ((readn = recv(sockfd, buf, MAXLINE, 0)) > 0)
     {
         writen = write(fd, buf, readn);
-        if(writen != readn)
+        if (writen != readn)
         {
+            printf("download error\n");
             return -1;
         }
         memset(buf, 0x00, MAXLINE);
@@ -54,28 +58,35 @@ int download(int sockfd, char *file)
     close(fd);
     return 1;
 }
-int upload(int sockfd, char *file)
+
+int file_upload(int sockfd, char *file)
 {
     struct Cquery query;
     int fd;
     int readn;
     int sendn;
     char buf[MAXLINE];
-    if( (fd = open(file, O_RDONLY)) == -1 ) {
+
+    if ((fd = open(file, O_RDONLY|O_CREAT)) == -1)
+    {
+        printf("upload open error\n");
         return -1;
     }
+
     memset(&query, 0x00, sizeof(query));
     query.command = htonl(Q_UPLOAD);
-    sprintf(query.fname, "%s", file);
-    if(send(sockfd, (void *)&query, sizeof(query), 0) <=0) {
+    sprintf(query.filename, "%s", file);
+
+    if (send(sockfd, (void *) &query, sizeof(query), 0) <= 0)
+    {
         return -1;
     }
-    while((readn = read(fd, buf, MAXLINE)) > 0)
+    while ((readn = read(fd, buf, MAXLINE)) > 0)
     {
         sendn = send(sockfd, buf, readn, 0);
-        if(sendn != readn)
+        if (sendn != readn)
         {
-            printf("Upload Error\n");
+            printf("upload error\n");
             return -1;
         }
     }
@@ -83,22 +94,28 @@ int upload(int sockfd, char *file)
     return 1;
 }
 
-int get_list(int sockfd)
+int file_list(int sockfd)
 {
     struct Cquery query;
     char buf[MAXLINE];
     int len;
+
     memset(&query, 0x00, sizeof(query));
     query.command = htonl(Q_LIST);
-    if(send(sockfd, (void *)&query, sizeof(query), 0) <=0 )
+
+    if (send(sockfd, (void *) &query, sizeof(query), 0) <= 0)
     {
         perror("Send Error\n");
         return -1;
     }
-    memset(buf, 0x00, MAXLINE);while(1)
+    memset(buf, 0x00, MAXLINE);
+    while (1)
     {
         len = recv(sockfd, buf, MAXLINE, 0);
-        if(len <= 0) break;
+        if (len <= 0) {
+            printf("========================\n");
+            break;
+        }
         printf("%s", buf);
         memset(buf, 0x00, MAXLINE);
     }
@@ -108,26 +125,25 @@ int get_list(int sockfd)
 
 void help(char *progname)
 {
-    printf("Usage : %s -h -i [ip] -u [upload filename] -d [download filename] -l\n",
-           progname);
+    printf("Usage : %s -h -i [ip] -u [upload filename] -d [download filename] -l\n", progname);
 }
+
 int main(int argc, char **argv)
 {
     struct sockaddr_in addr;
     int sockfd;
     int clilen;
     int opt;
-    int optflag=0;
     char *ipaddr;
-    int command_type=0;
+    int command_type = 0;
     char fname[256];
     char buf[MAXLINE];
 
-    memset(ipaddr,0x00,sizeof(ipaddr));
+    memset(ipaddr, 0x00, sizeof(ipaddr));
 
-    while( (opt = getopt(argc, argv, "hli:u:d:")) != -1)
+    while ((opt = getopt(argc, argv, "hli:u:d:")) != -1)
     {
-        switch(opt)
+        switch (opt)
         {
             case 'h':
                 help(argv[0]);
@@ -138,12 +154,10 @@ int main(int argc, char **argv)
             case 'u':
                 command_type = Q_UPLOAD;
                 sprintf(fname, "%s", optarg);
-                optflag = 1;
                 break;
             case 'd':
                 command_type = Q_DOWNLOAD;
                 sprintf(fname, "%s", optarg);
-                optflag = 1;
                 break;
             case 'l':
                 command_type = Q_LIST;
@@ -154,49 +168,39 @@ int main(int argc, char **argv)
         }
     }
 
-    if(ipaddr[0] == '\0') {
-        printf ("ip address not setting\n");
-        return 0;
-    }
-
-    if((fname[0] == '\0') && (optflag == 1)) {
-        printf ("fname error\n");
-        return 0;
-    }
-
-    if( (sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0 )
+    if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
-        perror("socket error");
+        printf("socket error\n");
         return 1;
     }
 
-    memset((void *)&addr, 0x00, sizeof(addr));
+    memset((void *) &addr, 0x00, sizeof(addr));
     addr.sin_family = AF_INET;
     addr.sin_addr.s_addr = inet_addr(ipaddr);
     addr.sin_port = htons(PORTNUM);
     clilen = sizeof(addr);
 
-    if(connect(sockfd, (struct sockaddr *)&addr, clilen) < 0)
+    if (connect(sockfd, (struct sockaddr *) &addr, clilen) < 0)
     {
-        perror("connect error:");
+        printf("connect error\n");
         return 0;
     }
 
-    while(1)
+    while (1)
     {
-        switch(command_type)
+        switch (command_type)
         {
             case (Q_LIST):
-                get_list(sockfd);
+                file_list(sockfd);
                 break;
             case (Q_DOWNLOAD):
-                download(sockfd, fname);
+                file_download(sockfd, fname);
                 break;
             case (Q_UPLOAD):
-                upload(sockfd, fname);
+                file_upload(sockfd, fname);
                 break;
             default:
-                printf("Unknown command\n");
+                printf("command error\n");
                 break;
         }
         break;

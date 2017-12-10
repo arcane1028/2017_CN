@@ -23,7 +23,7 @@
 struct Cquery
 {
     int command;
-    char fname[256];
+    char filename[256];
 };
 
 int process(int sockfd);
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     int sockfd;
     pid_t pid;
 
-    printf("test1\n");
+    printf("FTP SERVER START\n");
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1)
@@ -64,16 +64,13 @@ int main(int argc, char **argv)
     }
 
 
-    if (listen(sockfd, 5) != 0)
+    if (listen(sockfd, 100) != 0)
     {
-        printf("listen error");
+        printf("listen error\n");
     }
-    printf("test1\n");
 
     while (1)
     {
-
-        printf("test\n");
         clilen = sizeof(addr);
         cli_sockfd = accept(sockfd, NULL, (socklen_t *) &clilen);
         if (cli_sockfd < 0)
@@ -103,10 +100,15 @@ int file_upload(int sockfd, char *filename)
     char buf[MAXLINE];
     struct sockaddr_in addr;
     int addrlen;
-    int ret;
+    char writebuf[MAXLINE];
+
+    printf("file_upload\n");
+
     // send file
-    if ((fd = open(filename, O_WRONLY)) == -1)
+    if ((fd = open(filename, O_WRONLY|O_CREAT)) == -1)
     {
+        printf("upload open error\n");
+
         return -1;
     }
 
@@ -117,7 +119,7 @@ int file_upload(int sockfd, char *filename)
         writen = write(fd, buf, readn);
         if (writen < 0)
         {
-            printf("upload write error");
+            printf("upload write error\n");
         }
         memset(buf, 0x00, MAXLINE);
     }
@@ -126,14 +128,17 @@ int file_upload(int sockfd, char *filename)
     FILE *fp = fopen("list.txt", "w");
     if (fp == NULL)
     {
-        printf("upload fopen error");
+        printf("upload fopen error\n");
         return 0;
     }
-    fwrite(filename, 1, strlen(filename), fp);
-    fclose(fp);
 
     addrlen = sizeof(addr);
     getpeername(sockfd, (struct sockaddr *) &addr, &addrlen);
+
+    sprintf(writebuf, "name = %s\nip = %s\n ", filename, inet_ntoa(addr.sin_addr));
+    fwrite(writebuf, 1, strlen(writebuf), fp);
+    fclose(fp);
+
     printf("File Upload %s\n", inet_ntoa(addr.sin_addr));
     close(fd);
 
@@ -149,16 +154,19 @@ int file_download(int sockfd, char *filename)
     char buf[MAXLINE];
     struct sockaddr_in addr;
     int addrlen;
-    int ret;
+
+    printf("file_download\n");
+
     // send file
-    if ((fd = open(filename, O_RDONLY)) == -1)
+    if ((fd = open(filename, O_RDONLY|O_CREAT)) == -1)
     {
+        printf("download open error\n");
         return -1;
     }
 
     memset(buf, 0x00, MAXLINE);
 
-    while ((readn = recv(fd, buf, MAXLINE, 0)) > 0)
+    while ((readn = read(fd, buf, MAXLINE)) > 0)
     {
         sendn = send(sockfd, buf, readn, 0);
         if (sendn < 0)
@@ -167,7 +175,6 @@ int file_download(int sockfd, char *filename)
         }
         memset(buf, 0x00, MAXLINE);
     }
-    //list add
     close(fd);
     addrlen = sizeof(addr);
     getpeername(sockfd, (struct sockaddr *) &addr, &addrlen);
@@ -178,47 +185,36 @@ int file_download(int sockfd, char *filename)
 
 int file_list(int sockfd)
 {
-    char *ErrMsg;
-    int ret = 0;
+    int sendn;
     char temp[MAXLINE];
-    int writen;
+    char *filep;
+
+    printf("file_list\n");
 
     FILE *fp = fopen("list.txt", "r");
-    char *fileP;
 
     while (!feof(fp))
     {
-        fileP = fgets(temp, MAXLINE, fp);
+        filep=fgets(temp, MAXLINE, fp);
+        // list send
+        sendn = send(sockfd, temp, MAXLINE, 0);
+        if (sendn < 0)
+        {
+            printf("list sendn error\n");
+        }
 
     }
     fclose(fp);
 
+    printf("File Open Success %s\n",temp);
 
-    if (ret != 0)
-    {
-        printf("File Open Error\n");
-        return -1;
-    }
-    printf("File Open Success\n");
 
-    // list send
-
-    writen = send(sockfd, temp, MAXLINE, 0);
-
-    if (ret != 0)
-    {
-        printf("Error %s\n", ErrMsg);
-    }
-    //file_close(ret);
     return 1;
 }
 
 int process(int sockfd)
 {
-    char buffer[MAXLINE];
-
     struct Cquery query;
-
 
     while (1)
     {
@@ -230,10 +226,10 @@ int process(int sockfd)
         switch (query.command)
         {
             case (Q_UPLOAD):
-                file_upload(sockfd, query.fname);
+                file_upload(sockfd, query.filename);
                 break;
             case (Q_DOWNLOAD):
-                file_download(sockfd, query.fname);
+                file_download(sockfd, query.filename);
                 break;
             case (Q_LIST):
                 file_list(sockfd);
